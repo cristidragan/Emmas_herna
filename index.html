@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emma's Herna</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen active">
+        <!-- Playroom Background Decorations -->
+        <div class="playroom-decorations">
+            <div class="toy toy-1">🧸</div>
+            <div class="toy toy-2">🎈</div>
+            <div class="toy toy-3">🎨</div>
+            <div class="toy toy-4">🎪</div>
+            <div class="toy toy-5">🪁</div>
+            <div class="toy toy-6">🎯</div>
+            <div class="toy toy-7">🎲</div>
+            <div class="toy toy-8">🧩</div>
+            <div class="toy toy-9">🎭</div>
+            <div class="toy toy-10">🎨</div>
+            <div class="star star-1">⭐</div>
+            <div class="star star-2">✨</div>
+            <div class="star star-3">⭐</div>
+            <div class="star star-4">✨</div>
+            <div class="star star-5">⭐</div>
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <div class="cloud cloud-3">☁️</div>
+        </div>
+        <div class="playroom-container">
+            <div class="emma-avatar">👶</div>
+            <h1 class="game-title">Emma's Herna</h1>
+            <div class="categories-grid">
+                <button class="category-btn" data-category="fruits">
+                    <span class="category-emoji">🍎</span>
+                    <span class="category-label">Ovoce</span>
+                </button>
+                <button class="category-btn" data-category="vegetables">
+                    <span class="category-emoji">🥕</span>
+                    <span class="category-label">Zelenina</span>
+                </button>
+                <button class="category-btn" data-category="farm">
+                    <span class="category-emoji">🐮</span>
+                    <span class="category-label">Farma</span>
+                </button>
+                <button class="category-btn" data-category="house">
+                    <span class="category-emoji">🏠</span>
+                    <span class="category-label">Dům</span>
+                </button>
+                <button class="category-btn" data-category="family">
+                    <span class="category-emoji">👨‍👩‍👧</span>
+                    <span class="category-label">Rodina</span>
+                </button>
+                <button class="category-btn" data-category="colors">
+                    <span class="category-emoji">🎨</span>
+                    <span class="category-label">Barvy</span>
+                </button>
+                <button class="category-btn" data-category="vehicles">
+                    <span class="category-emoji">🚗</span>
+                    <span class="category-label">Vozidla</span>
+                </button>
+                <button class="category-btn" data-category="jungle">
+                    <span class="category-emoji">🦁</span>
+                    <span class="category-label">Divoká zvířata</span>
+                </button>
+                <button class="category-btn" data-category="body">
+                    <span class="category-emoji">👤</span>
+                    <span class="category-label">Části těla</span>
+                </button>
+                <button class="category-btn" data-category="sea">
+                    <span class="category-emoji">🦀</span>
+                    <span class="category-label">Mořská zvířata</span>
+                </button>
+                <button class="category-btn" data-category="toys">
+                    <span class="category-emoji">🧸</span>
+                    <span class="category-label">Hračky</span>
+                </button>
+                <button class="category-btn surprise-btn" id="surpriseBtn">
+                    <span class="category-emoji">🎁</span>
+                    <span class="category-label">Překvapení</span>
+                </button>
+                <button class="category-btn explore-btn" id="exploreBtn">
+                    <span class="category-emoji">🔍</span>
+                    <span class="category-label">Prozkoumat</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explore Screen -->
+    <div id="exploreScreen" class="screen">
+        <button class="exit-btn" id="exploreExitBtn" aria-label="Exit">❌</button>
+        <div class="explore-container">
+            <h2 class="explore-title">Prozkoumat</h2>
+            <div class="explore-grid" id="exploreGrid">
+                <!-- Emojis will be populated by JavaScript -->
+            </div>
+        </div>
+        <!-- Zoomed View -->
+        <div class="explore-zoomed" id="exploreZoomed">
+            <button class="zoom-close-btn" id="zoomCloseBtn" aria-label="Close">❌</button>
+            <div class="zoomed-content">
+                <div class="zoomed-emoji" id="zoomedEmoji">🍎</div>
+                <div class="zoomed-name" id="zoomedName">Jablko</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Surprise Box Screen -->
+    <div id="surpriseScreen" class="screen">
+        <button class="exit-btn" id="surpriseExitBtn" aria-label="Exit">❌</button>
+        <div class="surprise-container">
+            <div class="surprise-box-wrapper" id="surpriseBoxWrapper">
+                <div class="mystery-box" id="mysteryBox">
+                    <div class="box-top">📦</div>
+                    <div class="box-bottom">📦</div>
+                    <div class="ribbon ribbon-1">🎀</div>
+                    <div class="ribbon ribbon-2">🎀</div>
+                </div>
+                <div class="tap-hint" id="tapHint">Klikni na krabici!</div>
+            </div>
+            <div class="surprise-reveal" id="surpriseReveal">
+                <div class="confetti-container" id="confettiContainer"></div>
+                <div class="revealed-item">
+                    <div class="revealed-emoji" id="revealedEmoji">🎁</div>
+                    <div class="revealed-name" id="revealedName">Překvapení!</div>
+                </div>
+                <button class="next-surprise-btn" id="nextSurpriseBtn">Další překvapení! 🎁</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category View Screen -->
+    <div id="categoryScreen" class="screen">
+        <button class="exit-btn" id="exitBtn" aria-label="Exit">❌</button>
+        <div class="category-content">
+            <div class="item-display">
+                <div class="item-emoji" id="itemEmoji">🍎</div>
+                <div class="item-name" id="itemName">Apple</div>
+            </div>
+            <div class="controls">
+                <button class="nav-btn" id="prevBtn" aria-label="Previous">⬅️</button>
+                <button class="speaker-btn" id="speakerBtn" aria-label="Repeat word">🔊</button>
+                <button class="nav-btn" id="nextBtn" aria-label="Next">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
