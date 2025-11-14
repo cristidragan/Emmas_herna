@@ -386,16 +386,19 @@ function createConfetti() {
 }
 
 function unwrapBox() {
+    // Cancel any pending speech first
+    speechSynthesis.cancel();
+
     // Hide the box and hint slowly
     surpriseBoxWrapper.style.transition = 'opacity 1s ease-out';
     surpriseBoxWrapper.style.opacity = '0';
-    
+
     // Get random item
     const randomItem = getRandomItem();
-    
+
     // Create confetti
     createConfetti();
-    
+
     // Show reveal after a longer delay
     setTimeout(() => {
         surpriseBoxWrapper.style.display = 'none';
@@ -405,21 +408,19 @@ function unwrapBox() {
         surpriseReveal.classList.add('active');
         revealedEmoji.textContent = randomItem.emoji;
         revealedName.textContent = randomItem.word;
-        
+
         // Trigger animation
         revealedEmoji.style.animation = 'none';
         setTimeout(() => {
             revealedEmoji.style.animation = 'revealPop 1.5s ease-out, emojiBounce 2s ease-in-out infinite';
         }, 10);
-        
-        // Speak the word after reveal - use the displayed word to ensure accuracy
+
+        // Speak the word after reveal - ensure voices are loaded and cancel any pending speech
         setTimeout(() => {
-            const displayedWord = revealedName.textContent;
-            if (displayedWord && displayedWord === randomItem.word) {
-                speakWord(displayedWord);
-            } else {
+            speechSynthesis.cancel();
+            setTimeout(() => {
                 speakWord(randomItem.word);
-            }
+            }, 50);
         }, 1200);
     }, 1000);
 }
