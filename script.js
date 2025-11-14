@@ -266,22 +266,27 @@ function speakWord(word) {
     // Wait to ensure cancellation is complete
     setTimeout(() => {
         const utterance = new SpeechSynthesisUtterance(word.trim());
-        utterance.lang = 'cs-CZ'; // Set language to Czech
         utterance.rate = 0.9; // Slightly slower for clarity
         utterance.pitch = 1.1; // Slightly higher pitch (child-friendly)
         utterance.volume = 1.0;
 
         // Try to use a Czech voice if available
         const voices = speechSynthesis.getVoices();
-        const preferredVoice = voices.find(voice =>
+        const czechVoice = voices.find(voice =>
             voice.lang.startsWith('cs') ||
             voice.lang.startsWith('cs-CZ')
         ) || voices.find(voice =>
             voice.lang.includes('cs')
         );
 
-        if (preferredVoice) {
-            utterance.voice = preferredVoice;
+        if (czechVoice) {
+            utterance.voice = czechVoice;
+            utterance.lang = 'cs-CZ';
+            console.log('Using Czech voice:', czechVoice.name);
+        } else {
+            // Fallback to default voice if no Czech voice available (for macOS)
+            utterance.lang = 'cs-CZ';
+            console.warn('No Czech voice found, using default voice');
         }
 
         // Add error handling and logging
