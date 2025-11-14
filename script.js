@@ -254,17 +254,17 @@ const zoomCloseBtn = document.getElementById('zoomCloseBtn');
 
 // Initialize Speech Synthesis
 function speakWord(word) {
-    // Cancel any ongoing speech immediately and wait a bit
+    // Verify word is not empty first
+    if (!word || word.trim() === '') {
+        console.warn('Attempted to speak empty word');
+        return;
+    }
+
+    // Cancel any ongoing speech
     speechSynthesis.cancel();
 
-    // Small delay to ensure previous speech is fully cancelled
+    // Wait to ensure cancellation is complete
     setTimeout(() => {
-        // Verify word is not empty
-        if (!word || word.trim() === '') {
-            console.warn('Attempted to speak empty word');
-            return;
-        }
-
         const utterance = new SpeechSynthesisUtterance(word.trim());
         utterance.lang = 'cs-CZ'; // Set language to Czech
         utterance.rate = 0.9; // Slightly slower for clarity
@@ -415,12 +415,9 @@ function unwrapBox() {
             revealedEmoji.style.animation = 'revealPop 1.5s ease-out, emojiBounce 2s ease-in-out infinite';
         }, 10);
 
-        // Speak the word after reveal - ensure voices are loaded and cancel any pending speech
+        // Speak the word after reveal
         setTimeout(() => {
-            speechSynthesis.cancel();
-            setTimeout(() => {
-                speakWord(randomItem.word);
-            }, 50);
+            speakWord(randomItem.word);
         }, 1200);
     }, 1000);
 }
@@ -436,6 +433,8 @@ function resetSurpriseBox() {
 }
 
 function openSurpriseBox() {
+    // Cancel any speech when opening surprise box
+    speechSynthesis.cancel();
     homeScreen.classList.remove('active');
     surpriseScreen.classList.add('active');
     resetSurpriseBox();
