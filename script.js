@@ -574,7 +574,10 @@ zoomedName.addEventListener('click', () => {
     }
 });
 
-mysteryBox.addEventListener('click', unwrapBox);
+mysteryBox.addEventListener('click', (e) => {
+    e.stopPropagation();
+    unwrapBox();
+});
 surpriseBoxWrapper.addEventListener('click', unwrapBox);
 nextSurpriseBtn.addEventListener('click', getNextSurprise);
 
