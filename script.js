@@ -254,7 +254,7 @@ const zoomCloseBtn = document.getElementById('zoomCloseBtn');
 
 // Initialize Speech Synthesis
 function speakWord(word) {
-    // Cancel any ongoing speech immediately
+    // Cancel any ongoing speech immediately and wait a bit
     speechSynthesis.cancel();
 
     // Small delay to ensure previous speech is fully cancelled
@@ -265,9 +265,6 @@ function speakWord(word) {
             return;
         }
 
-        // Ensure voices are loaded
-        const voices = speechSynthesis.getVoices();
-
         const utterance = new SpeechSynthesisUtterance(word.trim());
         utterance.lang = 'cs-CZ'; // Set language to Czech
         utterance.rate = 0.9; // Slightly slower for clarity
@@ -275,17 +272,16 @@ function speakWord(word) {
         utterance.volume = 1.0;
 
         // Try to use a Czech voice if available
-        if (voices.length > 0) {
-            const preferredVoice = voices.find(voice =>
-                voice.lang.startsWith('cs') ||
-                voice.lang.startsWith('cs-CZ')
-            ) || voices.find(voice =>
-                voice.lang.includes('cs')
-            );
+        const voices = speechSynthesis.getVoices();
+        const preferredVoice = voices.find(voice =>
+            voice.lang.startsWith('cs') ||
+            voice.lang.startsWith('cs-CZ')
+        ) || voices.find(voice =>
+            voice.lang.includes('cs')
+        );
 
-            if (preferredVoice) {
-                utterance.voice = preferredVoice;
-            }
+        if (preferredVoice) {
+            utterance.voice = preferredVoice;
         }
 
         // Add error handling
@@ -293,10 +289,8 @@ function speakWord(word) {
             console.error('Speech synthesis error:', event);
         };
 
-        // Cancel again right before speaking to be extra sure
-        speechSynthesis.cancel();
         speechSynthesis.speak(utterance);
-    }, 150);
+    }, 100);
 }
 
 // Load voices when available (some browsers need this)
