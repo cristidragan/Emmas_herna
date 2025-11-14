@@ -284,13 +284,17 @@ function speakWord(word) {
             utterance.voice = preferredVoice;
         }
 
-        // Add error handling
+        // Add error handling and logging
+        utterance.onstart = (event) => {
+            console.log('Speaking:', word);
+        };
+
         utterance.onerror = (event) => {
             console.error('Speech synthesis error:', event);
         };
 
         speechSynthesis.speak(utterance);
-    }, 100);
+    }, 200);
 }
 
 // Load voices when available (some browsers need this)
